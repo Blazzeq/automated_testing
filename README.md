@@ -1,13 +1,23 @@
-# Testing
+# Repository to have fun with automated testing
 ___
-### Wracam do pisania kodu hehs
-> Paragraf
-#### Koniec
-``fragment kodu``
+### I'm going back to writing code, first time since end of my computer science studies.<br><br> I will try to learn as much as possible.
 ___
-- lista
-    - dwa
-    - trzy
-      - lol
--koniec
-#### pisze se dalej *test*
+## Technologies:
+
+- Git
+- Python
+- Selenium
+- Playwright
+- Swagger
+- *Robot Framework*
+- *Postman*
+- *PyTest + requests*
+
+## Stack:
+
+- PyCharm 2025.1.1
+- Git 2.49.0
+- Python 3.13.3
+- GitHub
+- Perplexity.AI Pro
+- *PyCharm AI Assistant (not convinced)*
