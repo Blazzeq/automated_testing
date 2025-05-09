@@ -9,6 +9,7 @@ ___
 - Selenium
 - Playwright
 - Swagger
+- TypeScript
 - *Robot Framework*
 - *Postman*
 - *PyTest + requests*
@@ -18,6 +19,7 @@ ___
 - PyCharm 2025.1.1
 - Git 2.49.0
 - Python 3.13.3
+- NodeJS 22.15.0
 - GitHub
 - Perplexity.AI Pro
 - *PyCharm AI Assistant (not convinced)*
