@@ -26,7 +26,9 @@ test.describe('Login', () => {
     await page.getByTestId('login-input').fill(userWrongLogin);
     await page.getByTestId('login-input').blur();
 
-    await expect(page.getByTestId('error-login-id')).toHaveText(`identyfikator ${errorString}`);
+    await expect(page.getByTestId('error-login-id')).toHaveText(
+      `identyfikator ${errorString}`,
+    );
   });
 
   test('Login with too short password', async ({ page }) => {
@@ -35,6 +37,8 @@ test.describe('Login', () => {
     await page.getByTestId('password-input').fill(userWrongPassword);
     await page.getByTestId('password-input').blur();
 
-    await expect(page.getByTestId('error-login-password')).toHaveText(`hasło ${errorString}`);
+    await expect(page.getByTestId('error-login-password')).toHaveText(
+      `hasło ${errorString}`,
+    );
   });
 });
