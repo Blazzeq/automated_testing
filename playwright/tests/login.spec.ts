@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 //Arrange
-const url = 'https://demo-bank.vercel.app/index.html';
 const userLogin = 'tester12';
 const userPassword = 'password';
 const userWrongLogin = 'tester';
@@ -11,7 +10,7 @@ const errorString = 'ma min. 8 znaków';
 
 test.describe('Login', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(url);
+    await page.goto('/')
   });
 
   test('Login with correct credentials', async ({ page }) => {

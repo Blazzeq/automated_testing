@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-const url = 'https://demo-bank.vercel.app/index.html';
 const userId = 'tester12';
 const userPassword = 'password';
 const selectedTransferOption = '2';
@@ -25,7 +24,7 @@ async function getElementType(locator) {
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(url);
+    await page.goto('/');
     await page.getByTestId('login-input').fill(userId);
     await page.getByTestId('password-input').fill(userPassword);
     await page.getByTestId('login-button').click();
