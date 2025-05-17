@@ -1,9 +1,7 @@
 import { expect, test } from '@playwright/test';
 import {
   topUpData,
-  topUpSuccessMessage,
-  transferData,
-  transferSuccessMessage,
+  quickTransferData,
   userData,
 } from '../test-data/login.data';
 import { getElementType, login } from '../helpers/functions.helper';
@@ -16,15 +14,19 @@ test.describe('Pulpit tests', () => {
     test('Quick payment with correct data', async ({ page }) => {
       await page
         .locator('#widget_1_transfer_receiver')
-        .selectOption(transferData.receiver);
-      await page.locator('#widget_1_transfer_amount').fill(transferData.amount);
-      await page.locator('#widget_1_transfer_title').fill(transferData.title);
+        .selectOption(quickTransferData.receiver);
+      await page
+        .locator('#widget_1_transfer_amount')
+        .fill(quickTransferData.amount);
+      await page
+        .locator('#widget_1_transfer_title')
+        .fill(quickTransferData.title);
 
       await page.getByRole('button', { name: 'wykonaj' }).click();
       await page.getByTestId('close-button').click();
 
       await expect(page.locator('#show_messages')).toHaveText(
-        `${transferSuccessMessage} ${transferData.receiver} - ${transferData.amount}PLN - ${transferData.title}`,
+        quickTransferData.message(),
       );
     });
   });
@@ -49,7 +51,7 @@ test.describe('Pulpit tests', () => {
       await page.getByTestId('close-button').click();
 
       await expect(page.locator('#show_messages')).toHaveText(
-        `${topUpSuccessMessage} ${topUpData.amount},00PLN na numer ${topUpData.phoneNumber}`,
+        topUpData.message(),
       );
     });
 
