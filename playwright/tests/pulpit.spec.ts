@@ -61,4 +61,25 @@ test.describe('Pulpit tests', () => {
       `${topUpSuccessMessage} ${topUpAmount},00PLN na numer ${phoneNumber}`,
     );
   });
+
+  test('Check balance after correct mobile top up', async ({ page }) => {
+    const initialBalance = await page.locator('#money_value').innerText();
+    const expectedBalance = Number(initialBalance) - Number(topUpAmount);
+
+    await page.locator('#widget_1_topup_receiver').selectOption(phoneNumber);
+    const type = await getElementType(page.locator('#widget_1_topup_amount'));
+    if (type == 'text') {
+      await page.locator('#widget_1_topup_amount').fill(topUpAmount);
+    } else if (type == 'select') {
+      await page.locator('#widget_1_topup_amount').selectOption(topUpAmount);
+    }
+    await page.locator('#widget_1_topup_agreement').check();
+
+    await page.getByRole('button', { name: 'doładuj telefon' }).click();
+    await page.getByTestId('close-button').click();
+
+    await expect(page.locator('#money_value')).toHaveText(
+      expectedBalance.toString(),
+    );
+  });
 });
