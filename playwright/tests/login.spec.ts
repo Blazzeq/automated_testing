@@ -22,20 +22,22 @@ test.describe('Login', () => {
   });
 
   test('Login with too short username', async ({ page }) => {
+    const loginPage = new LoginPage(page);
     await page.getByTestId('login-input').fill(wrongUserData.login);
     await page.getByTestId('login-input').blur();
 
-    await expect(page.getByTestId('error-login-id')).toHaveText(
+    await expect(loginPage.errorLoginId).toHaveText(
       `${wrongLoginErrorMessage}`,
     );
   });
 
   test('Login with too short password', async ({ page }) => {
+    const loginPage = new LoginPage(page);
     await page.getByTestId('login-input').fill(userData.login);
     await page.getByTestId('password-input').fill(wrongUserData.password);
     await page.getByTestId('password-input').blur();
 
-    await expect(page.getByTestId('error-login-password')).toHaveText(
+    await expect(loginPage.errorLoginPassword).toHaveText(
       `${wrongPasswordErrorMessage}`,
     );
   });
