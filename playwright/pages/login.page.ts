@@ -4,6 +4,7 @@ import { userData } from '../test-data/login.data';
 export class LoginPage {
   private _loginInput: Locator;
   private _passwordInput: Locator;
+  private _userName: Locator;
   private _loginButton: Locator;
   private _errorLoginId: Locator;
   private _errorLoginPassword: Locator;
@@ -11,6 +12,7 @@ export class LoginPage {
   constructor(private page: Page) {
     this._loginInput = this.page.getByTestId('login-input');
     this._passwordInput = this.page.getByTestId('password-input');
+    this._userName = this.page.getByTestId('user-name');
     this._loginButton = this.page.getByTestId('login-button');
     this._errorLoginId = this.page.getByTestId('error-login-id');
     this._errorLoginPassword = this.page.getByTestId('error-login-password');
@@ -44,5 +46,9 @@ export class LoginPage {
 
   get errorLoginPassword(): Locator {
     return this._errorLoginPassword;
+  }
+
+  get userName(): Locator {
+    return this._userName;
   }
 }

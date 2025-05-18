@@ -15,8 +15,8 @@ test.describe('Payments tests', () => {
     const paymentsPage = new PaymentsPage(page);
     await paymentsPage.payment(transferData);
 
-    await expect(page.locator('#show_messages')).toHaveText(
-      transferData.message(),
+    await expect(paymentsPage.message).toHaveText(
+      transferData.expectedMessage(),
     );
   });
 });

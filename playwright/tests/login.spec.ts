@@ -19,7 +19,7 @@ test.describe('Login', () => {
     await loginPage.login(userData);
 
     //Assert
-    await expect(page.getByTestId('user-name')).toHaveText(userData.name);
+    await expect(loginPage.userName).toHaveText(userData.name);
   });
 
   test('Login with too short username', async ({ page }) => {

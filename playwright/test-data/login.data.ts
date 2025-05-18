@@ -17,7 +17,7 @@ export const quickTransferData = {
   amount: '150,00',
   title: 'Pizza',
   receiver: 'Chuck Demobankowy',
-  message() {
+  expectedMessage() {
     return `Przelew wykonany! ${this.receiver} - ${this.amount}PLN - ${this.title}`;
   },
 };
@@ -27,7 +27,7 @@ export const transferData = {
   amount: '222',
   receiver: 'Jan Nowak',
   account: '12 3456 7890 1234 5678 9012 3456',
-  message() {
+  expectedMessage() {
     return `Przelew wykonany! ${this.amount},00PLN dla ${this.receiver}`;
   },
 };
@@ -36,7 +36,7 @@ export const transferData = {
 export const topUpData = {
   amount: '40',
   phoneNumber: '504 xxx xxx',
-  message() {
+  expectedMessage() {
     return `Doładowanie wykonane! ${this.amount},00PLN na numer ${this.phoneNumber}`;
   },
 };

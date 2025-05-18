@@ -18,8 +18,8 @@ test.describe('Pulpit tests', () => {
       const dashboardPage = new DashboardPage(page);
       await dashboardPage.quickTransfer(quickTransferData);
 
-      await expect(page.locator('#show_messages')).toHaveText(
-        quickTransferData.message(),
+      await expect(dashboardPage.message).toHaveText(
+        quickTransferData.expectedMessage(),
       );
     });
   });
@@ -29,18 +29,18 @@ test.describe('Pulpit tests', () => {
       const dashboardPage = new DashboardPage(page);
       await dashboardPage.mobileTopUp(topUpData);
 
-      await expect(page.locator('#show_messages')).toHaveText(
-        topUpData.message(),
+      await expect(dashboardPage.message).toHaveText(
+        topUpData.expectedMessage(),
       );
     });
 
     test('Check balance after correct mobile top up', async ({ page }) => {
       const dashboardPage = new DashboardPage(page);
-      const initialBalance = await page.locator('#money_value').innerText();
+      const initialBalance = await dashboardPage.balance.innerText();
       const expectedBalance = Number(initialBalance) - Number(topUpData.amount);
       await dashboardPage.mobileTopUp(topUpData);
 
-      await expect(page.locator('#money_value')).toHaveText(
+      await expect(dashboardPage.balance).toHaveText(
         expectedBalance.toString(),
       );
     });

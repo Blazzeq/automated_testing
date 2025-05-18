@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { transferData } from '../test-data/login.data';
 
 export class PaymentsPage {
   private _transferReceiver: Locator;
@@ -6,6 +7,7 @@ export class PaymentsPage {
   private _transferAmount: Locator;
   private _transferButton: Locator;
   private _closeButton: Locator;
+  private _message: Locator;
 
   constructor(private page: Page) {
     this._transferReceiver = this.page.getByTestId('transfer_receiver');
@@ -15,6 +17,7 @@ export class PaymentsPage {
       name: 'wykonaj przelew',
     });
     this._closeButton = this.page.getByTestId('close-button');
+    this._message = this.page.locator('#show_messages');
   }
 
   async payment(transferData) {
@@ -47,6 +50,10 @@ export class PaymentsPage {
 
   get closeButton(): Locator {
     return this._closeButton;
+  }
+
+  get message(): Locator {
+    return this._message;
   }
 
   // await page.getByTestId('transfer_receiver').fill(transferData.receiver);

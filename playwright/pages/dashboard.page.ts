@@ -12,6 +12,8 @@ export class DashboardPage {
   private _mobileTopUpAgreement: Locator;
   private _mobileTopUpButton: Locator;
   private _mobileTopUpCloseButton: Locator;
+  private _message: Locator;
+  private _balance: Locator;
 
   constructor(private page: Page) {
     this._quickTransferReceiver = this.page.locator(
@@ -30,6 +32,8 @@ export class DashboardPage {
       name: 'doładuj telefon',
     });
     this._mobileTopUpCloseButton = this.page.getByTestId('close-button');
+    this._message = this.page.locator('#show_messages');
+    this._balance = this.page.locator('#money_value');
   }
 
   async quickTransfer(quickTransferData) {
@@ -71,5 +75,33 @@ export class DashboardPage {
 
   get quickTransferCloseButton(): Locator {
     return this._quickTransferCloseButton;
+  }
+
+  get mobileTopUpReceiver(): Locator {
+    return this._mobileTopUpReceiver;
+  }
+
+  get mobileTopUpAmount(): Locator {
+    return this._mobileTopUpAmount;
+  }
+
+  get mobileTopUpAgreement(): Locator {
+    return this._mobileTopUpAgreement;
+  }
+
+  get mobileTopUpButton(): Locator {
+    return this._mobileTopUpButton;
+  }
+
+  get mobileTopUpCloseButton(): Locator {
+    return this._mobileTopUpCloseButton;
+  }
+
+  get message(): Locator {
+    return this._message;
+  }
+
+  get balance(): Locator {
+    return this._balance;
   }
 }
