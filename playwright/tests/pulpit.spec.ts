@@ -18,33 +18,46 @@ test.describe('Pulpit tests', () => {
     dashboardPage = new DashboardPage(page);
   });
   test.describe('Quick payment tests', () => {
-    test('Quick payment with correct data', async ({ page }) => {
-      await dashboardPage.quickTransfer(quickTransferData);
+    test(
+      'Quick payment with correct data',
+      { tag: ['@dashboard', '@quick_transfer'] },
+      async ({ page }) => {
+        await dashboardPage.quickTransfer(quickTransferData);
 
-      await expect(dashboardPage.message).toHaveText(
-        quickTransferData.expectedMessage(),
-      );
-    });
+        await expect(dashboardPage.message).toHaveText(
+          quickTransferData.expectedMessage(),
+        );
+      },
+    );
   });
 
   test.describe('Mobile top up tests', () => {
-    test('Mobile top up with correct data', async ({ page }) => {
-      await dashboardPage.mobileTopUp(topUpData);
+    test(
+      'Mobile top up with correct data',
+      { tag: ['@dashboard', '@mobile_top_up'] },
+      async ({ page }) => {
+        await dashboardPage.mobileTopUp(topUpData);
 
-      await expect(dashboardPage.message).toHaveText(
-        topUpData.expectedMessage(),
-      );
-    });
+        await expect(dashboardPage.message).toHaveText(
+          topUpData.expectedMessage(),
+        );
+      },
+    );
 
-    test('Check balance after correct mobile top up', async ({ page }) => {
-      const initialBalance = await dashboardPage.balance.innerText();
-      const expectedBalance = Number(initialBalance) - Number(topUpData.amount);
+    test(
+      'Check balance after correct mobile top up',
+      { tag: ['@dashboard', '@mobile_top_up', '@integration'] },
+      async ({ page }) => {
+        const initialBalance = await dashboardPage.balance.innerText();
+        const expectedBalance =
+          Number(initialBalance) - Number(topUpData.amount);
 
-      await dashboardPage.mobileTopUp(topUpData);
+        await dashboardPage.mobileTopUp(topUpData);
 
-      await expect(dashboardPage.balance).toHaveText(
-        expectedBalance.toString(),
-      );
-    });
+        await expect(dashboardPage.balance).toHaveText(
+          expectedBalance.toString(),
+        );
+      },
+    );
   });
 });

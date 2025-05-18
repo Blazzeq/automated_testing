@@ -10,7 +10,8 @@
     "test:headed": "npx playwright test --headed",
     "report": "npx playwright show-report",
     "record": "npx playwright codegen https://demo-bank.vercel.app/index.html",
-    "prettier": "npx prettier -w ."
+    "prettier": "npx prettier -w .",
+    "test:happy_path": "npx playwright test --grep \"@happy_path\""
   },
   "keywords": [],
   "author": "",

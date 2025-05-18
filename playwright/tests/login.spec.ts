@@ -15,30 +15,42 @@ test.describe('Login', () => {
     await loginPage.goto(page);
   });
 
-  test('Login with correct credentials', async ({ page }) => {
-    //Act
-    await loginPage.login(userData);
+  test(
+    'Login with correct credentials',
+    { tag: ['@login', '@happy_path', '@smoke'] },
+    async ({ page }) => {
+      //Act
+      await loginPage.login(userData);
 
-    //Assert
-    await expect(loginPage.userName).toHaveText(userData.name);
-  });
+      //Assert
+      await expect(loginPage.userName).toHaveText(userData.name);
+    },
+  );
 
-  test('Login with too short username', async ({ page }) => {
-    await loginPage.loginInput.fill(wrongUserData.login);
-    await loginPage.loginInput.blur();
+  test(
+    'Login with too short username',
+    { tag: ['@login', '@negative_path'] },
+    async ({ page }) => {
+      await loginPage.loginInput.fill(wrongUserData.login);
+      await loginPage.loginInput.blur();
 
-    await expect(loginPage.errorLoginId).toHaveText(
-      `${wrongLoginErrorMessage}`,
-    );
-  });
+      await expect(loginPage.errorLoginId).toHaveText(
+        `${wrongLoginErrorMessage}`,
+      );
+    },
+  );
 
-  test('Login with too short password', async ({ page }) => {
-    await loginPage.loginInput.fill(userData.login);
-    await loginPage.passwordInput.fill(wrongUserData.password);
-    await loginPage.passwordInput.blur();
+  test(
+    'Login with too short password',
+    { tag: ['@login', '@negative_path'] },
+    async ({ page }) => {
+      await loginPage.loginInput.fill(userData.login);
+      await loginPage.passwordInput.fill(wrongUserData.password);
+      await loginPage.passwordInput.blur();
 
-    await expect(loginPage.errorLoginPassword).toHaveText(
-      `${wrongPasswordErrorMessage}`,
-    );
-  });
+      await expect(loginPage.errorLoginPassword).toHaveText(
+        `${wrongPasswordErrorMessage}`,
+      );
+    },
+  );
 });

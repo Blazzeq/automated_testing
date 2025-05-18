@@ -14,11 +14,15 @@ test.describe('Payments tests', () => {
     await loginPage.login(userData);
     await paymentsPage.sideMenu.gotoPayments(page);
   });
-  test('Simple payment test', async ({ page }) => {
-    await paymentsPage.payment(transferData);
+  test(
+    'Simple payment test',
+    { tag: ['@payment', '@happy_path'] },
+    async ({ page }) => {
+      await paymentsPage.payment(transferData);
 
-    await expect(paymentsPage.message).toHaveText(
-      transferData.expectedMessage(),
-    );
-  });
+      await expect(paymentsPage.message).toHaveText(
+        transferData.expectedMessage(),
+      );
+    },
+  );
 });
