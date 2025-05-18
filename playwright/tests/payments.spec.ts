@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
-import { login } from '../helpers/functions.helper';
 import { transferData, userData } from '../test-data/login.data';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Payments tests', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page, userData);
+    await page.goto('/');
+    const loginPage = new LoginPage(page);
+    await loginPage.login(userData);
     await page.getByRole('link', { name: 'płatności' }).click();
   });
   test('Simple payment test', async ({ page }) => {

@@ -4,11 +4,14 @@ import {
   quickTransferData,
   userData,
 } from '../test-data/login.data';
-import { getElementType, login } from '../helpers/functions.helper';
+import { getElementType } from '../helpers/functions.helper';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    await login(page, userData);
+    await page.goto('/');
+    const loginPage = new LoginPage(page);
+    await loginPage.login(userData);
   });
   test.describe('Quick payment tests', () => {
     test('Quick payment with correct data', async ({ page }) => {

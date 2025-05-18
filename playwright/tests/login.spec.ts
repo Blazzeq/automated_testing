@@ -5,6 +5,7 @@ import {
   wrongLoginErrorMessage,
   wrongPasswordErrorMessage,
 } from '../test-data/login.data';
+import { LoginPage } from '../pages/login.page';
 
 test.describe('Login', () => {
   test.beforeEach(async ({ page }) => {
@@ -13,9 +14,8 @@ test.describe('Login', () => {
 
   test('Login with correct credentials', async ({ page }) => {
     //Act
-    await page.getByTestId('login-input').fill(userData.login);
-    await page.getByTestId('password-input').fill(userData.password);
-    await page.getByTestId('login-button').click();
+    const loginPage = new LoginPage(page);
+    await loginPage.login(userData);
 
     //Assert
     await expect(page.getByTestId('user-name')).toHaveText(userData.name);

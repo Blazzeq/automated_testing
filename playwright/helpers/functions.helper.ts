@@ -8,10 +8,3 @@ export async function getElementType(locator) {
   }
   return 'other';
 }
-
-export async function login(page, userData) {
-  await page.goto('/');
-  await page.getByTestId('login-input').fill(userData.login);
-  await page.getByTestId('password-input').fill(userData.password);
-  await page.getByTestId('login-button').click();
-}
