@@ -1,5 +1,4 @@
 import { Locator, Page } from '@playwright/test';
-import { userData } from '../test-data/login.data';
 
 export class LoginPage {
   private _loginInput: Locator;
@@ -18,7 +17,7 @@ export class LoginPage {
     this._errorLoginPassword = this.page.getByTestId('error-login-password');
   }
 
-  async login(userData) {
+  async login(userData): Promise<void> {
     await this._loginInput.fill(userData.login);
     await this._passwordInput.fill(userData.password);
     await this._loginButton.click();
