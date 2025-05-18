@@ -8,14 +8,15 @@ import {
 import { LoginPage } from '../pages/login.page';
 
 test.describe('Login', () => {
+  let loginPage: LoginPage;
+
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
+    loginPage = new LoginPage(page);
     await loginPage.goto(page);
   });
 
   test('Login with correct credentials', async ({ page }) => {
     //Act
-    const loginPage = new LoginPage(page);
     await loginPage.login(userData);
 
     //Assert
@@ -23,9 +24,8 @@ test.describe('Login', () => {
   });
 
   test('Login with too short username', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await page.getByTestId('login-input').fill(wrongUserData.login);
-    await page.getByTestId('login-input').blur();
+    await loginPage.loginInput.fill(wrongUserData.login);
+    await loginPage.loginInput.blur();
 
     await expect(loginPage.errorLoginId).toHaveText(
       `${wrongLoginErrorMessage}`,
@@ -33,10 +33,9 @@ test.describe('Login', () => {
   });
 
   test('Login with too short password', async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    await page.getByTestId('login-input').fill(userData.login);
-    await page.getByTestId('password-input').fill(wrongUserData.password);
-    await page.getByTestId('password-input').blur();
+    await loginPage.loginInput.fill(userData.login);
+    await loginPage.passwordInput.fill(wrongUserData.password);
+    await loginPage.passwordInput.blur();
 
     await expect(loginPage.errorLoginPassword).toHaveText(
       `${wrongPasswordErrorMessage}`,

@@ -4,15 +4,17 @@ import { LoginPage } from '../pages/login.page';
 import { PaymentsPage } from '../pages/payments.page';
 
 test.describe('Payments tests', () => {
+  let loginPage: LoginPage;
+  let paymentsPage: PaymentsPage;
+
   test.beforeEach(async ({ page }) => {
-    const loginPage = new LoginPage(page);
-    const paymentsPage = new PaymentsPage(page);
+    loginPage = new LoginPage(page);
+    paymentsPage = new PaymentsPage(page);
     await loginPage.goto(page);
     await loginPage.login(userData);
-    await paymentsPage.goto(page);
+    await paymentsPage.sideMenu.gotoPayments(page);
   });
   test('Simple payment test', async ({ page }) => {
-    const paymentsPage = new PaymentsPage(page);
     await paymentsPage.payment(transferData);
 
     await expect(paymentsPage.message).toHaveText(

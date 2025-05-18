@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { transferData } from '../test-data/login.data';
+import { SideMenuComponent } from '../components/side-menu.component';
 
 export class PaymentsPage {
   private _transferReceiver: Locator;
@@ -8,6 +8,7 @@ export class PaymentsPage {
   private _transferButton: Locator;
   private _closeButton: Locator;
   private _message: Locator;
+  private _sideMenu = new SideMenuComponent(this.page);
 
   constructor(private page: Page) {
     this._transferReceiver = this.page.getByTestId('transfer_receiver');
@@ -26,10 +27,6 @@ export class PaymentsPage {
     await this._transferAmount.fill(transferData.amount);
     await this._transferButton.click();
     await this._closeButton.click();
-  }
-
-  async goto(page: Page) {
-    await page.getByRole('link', { name: 'płatności' }).click();
   }
 
   get transferReceiver(): Locator {
@@ -54,6 +51,10 @@ export class PaymentsPage {
 
   get message(): Locator {
     return this._message;
+  }
+
+  get sideMenu(): SideMenuComponent {
+    return this._sideMenu;
   }
 
   // await page.getByTestId('transfer_receiver').fill(transferData.receiver);
