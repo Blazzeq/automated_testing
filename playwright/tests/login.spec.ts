@@ -17,7 +17,13 @@ test.describe('Login', () => {
 
   test(
     'Login with correct credentials',
-    { tag: ['@login', '@happy_path', '@smoke'] },
+    {
+      tag: ['@login', '@happy_path', '@smoke'],
+      annotation: {
+        type: 'Happy path',
+        description: 'Basic happy path test for login',
+      },
+    },
     async ({ page }) => {
       //Act
       await loginPage.login(userData);

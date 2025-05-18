@@ -16,7 +16,10 @@ test.describe('Payments tests', () => {
   });
   test(
     'Simple payment test',
-    { tag: ['@payment', '@happy_path'] },
+    {
+      tag: ['@payment', '@happy_path'],
+      annotation: { type: 'DOC', description: 'www.google.com' },
+    },
     async ({ page }) => {
       await paymentsPage.payment(transferData);
 
