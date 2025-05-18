@@ -4,29 +4,19 @@ import {
   quickTransferData,
   userData,
 } from '../test-data/login.data';
-import { getElementType } from '../helpers/functions.helper';
 import { LoginPage } from '../pages/login.page';
+import { DashboardPage } from '../pages/dashboard.page';
 
 test.describe('Pulpit tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
     const loginPage = new LoginPage(page);
+    await loginPage.goto(page);
     await loginPage.login(userData);
   });
   test.describe('Quick payment tests', () => {
     test('Quick payment with correct data', async ({ page }) => {
-      await page
-        .locator('#widget_1_transfer_receiver')
-        .selectOption(quickTransferData.receiver);
-      await page
-        .locator('#widget_1_transfer_amount')
-        .fill(quickTransferData.amount);
-      await page
-        .locator('#widget_1_transfer_title')
-        .fill(quickTransferData.title);
-
-      await page.getByRole('button', { name: 'wykonaj' }).click();
-      await page.getByTestId('close-button').click();
+      const dashboardPage = new DashboardPage(page);
+      await dashboardPage.quickTransfer(quickTransferData);
 
       await expect(page.locator('#show_messages')).toHaveText(
         quickTransferData.message(),
@@ -36,22 +26,8 @@ test.describe('Pulpit tests', () => {
 
   test.describe('Mobile top up tests', () => {
     test('Mobile top up with correct data', async ({ page }) => {
-      await page
-        .locator('#widget_1_topup_receiver')
-        .selectOption(topUpData.phoneNumber);
-
-      const type = await getElementType(page.locator('#widget_1_topup_amount'));
-      if (type == 'text') {
-        await page.locator('#widget_1_topup_amount').fill(topUpData.amount);
-      } else if (type == 'select') {
-        await page
-          .locator('#widget_1_topup_amount')
-          .selectOption(topUpData.amount);
-      }
-      await page.locator('#widget_1_topup_agreement').check();
-
-      await page.getByRole('button', { name: 'doładuj telefon' }).click();
-      await page.getByTestId('close-button').click();
+      const dashboardPage = new DashboardPage(page);
+      await dashboardPage.mobileTopUp(topUpData);
 
       await expect(page.locator('#show_messages')).toHaveText(
         topUpData.message(),
@@ -59,24 +35,10 @@ test.describe('Pulpit tests', () => {
     });
 
     test('Check balance after correct mobile top up', async ({ page }) => {
+      const dashboardPage = new DashboardPage(page);
       const initialBalance = await page.locator('#money_value').innerText();
       const expectedBalance = Number(initialBalance) - Number(topUpData.amount);
-
-      await page
-        .locator('#widget_1_topup_receiver')
-        .selectOption(topUpData.phoneNumber);
-      const type = await getElementType(page.locator('#widget_1_topup_amount'));
-      if (type == 'text') {
-        await page.locator('#widget_1_topup_amount').fill(topUpData.amount);
-      } else if (type == 'select') {
-        await page
-          .locator('#widget_1_topup_amount')
-          .selectOption(topUpData.amount);
-      }
-      await page.locator('#widget_1_topup_agreement').check();
-
-      await page.getByRole('button', { name: 'doładuj telefon' }).click();
-      await page.getByTestId('close-button').click();
+      await dashboardPage.mobileTopUp(topUpData);
 
       await expect(page.locator('#money_value')).toHaveText(
         expectedBalance.toString(),

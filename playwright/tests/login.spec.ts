@@ -9,7 +9,8 @@ import { LoginPage } from '../pages/login.page';
 
 test.describe('Login', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    const loginPage = new LoginPage(page);
+    await loginPage.goto(page);
   });
 
   test('Login with correct credentials', async ({ page }) => {

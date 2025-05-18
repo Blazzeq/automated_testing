@@ -22,6 +22,10 @@ export class LoginPage {
     await this._loginButton.click();
   }
 
+  async goto(page: Page) {
+    await page.goto('/');
+  }
+
   get loginInput(): Locator {
     return this._loginInput;
   }

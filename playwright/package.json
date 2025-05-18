@@ -9,7 +9,8 @@
     "test:pulpit:headed": "npm run test tests/pulpit.spec.ts -- --headed",
     "test:headed": "npx playwright test --headed",
     "report": "npx playwright show-report",
-    "record": "npx playwright codegen https://demo-bank.vercel.app/index.html"
+    "record": "npx playwright codegen https://demo-bank.vercel.app/index.html",
+    "prettier": "npx prettier -w ."
   },
   "keywords": [],
   "author": "",
